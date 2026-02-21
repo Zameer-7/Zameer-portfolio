@@ -227,7 +227,6 @@ const roadmap = [
     highlights: [
       "Fake News Detection - TF-IDF, Logistic Regression, Random Forest, F1-score",
       "Explored BERT training on Google Colab",
-      "AI Mental Health Chatbot - HuggingFace emotion detection + supportive suggestions",
       "AI Resume Screener - concept-based NLP matching, SHAP explainability, XGBoost",
       "BigMart Sales Prediction - end-to-end regression pipeline",
       "Chest X-Ray Pneumonia Detection - DenseNet121 + Grad-CAM + Streamlit",
@@ -248,16 +247,13 @@ const roadmap = [
       "Built FRMS (Fraud Risk Management System) project for fraud pattern detection",
       "FRMS stack: Docker, PostgreSQL, MySQL, ClickHouse",
       "CGPA improved consistently to 8.7",
-      "Relocated to Bangalore - India’s AI and technology hub",
-      "Actively building stock/crypto ML prediction models",
       "Exploring fraud detection systems",
       "Preparing for product engineer placements (DeltaX & top firms)",
-      "Started Forex & index trading - Angel One, scalping (1m-15m)",
+      "Started Forex & index trading - Angel One, scalping",
       "Designing ML-based trading bot with risk management",
-      "Portfolio and LinkedIn optimization for 6-12 LPA+ roles",
     ],
     turning: "Focused on production-grade system design, scalability, and deployment-oriented execution.",
-    tags: ["Innovitegra", "FRMS", "Docker", "PostgreSQL", "MySQL", "ClickHouse", "Trading Bot", "Fraud Detection", "Stock Prediction", "Bangalore", "6-12 LPA Target"],
+    tags: ["Innovitegra", "FRMS", "Docker", "PostgreSQL", "MySQL", "ClickHouse", "Trading Bot", "Fraud Detection", "Stock Prediction", "Bangalore"],
   },
 ];
 
@@ -697,6 +693,21 @@ export default function Portfolio() {
       pointer-events: none;
     }
     .roadmap-h { position: relative; z-index: 2; }
+    .rm-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,173,181,.55) rgba(0,0,0,.2);
+    }
+    .rm-scroll::-webkit-scrollbar { height: 6px; }
+    .rm-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,.2); }
+    .rm-scroll::-webkit-scrollbar-thumb {
+      background: rgba(0,173,181,.55);
+      border-radius: 20px;
+    }
+    .rm-track { min-width: 680px; }
     .rm-line {
       height: 2px;
       margin: 18px 22px 0;
@@ -869,7 +880,8 @@ export default function Portfolio() {
       .pc:last-child { grid-column: auto; }
       .brtgs { padding-left: 0; }
       .edu-head { grid-template-columns: 1fr; gap: 10px; }
-      .rm-points { grid-template-columns: repeat(4, minmax(92px, 1fr)); }
+      .rm-track { min-width: 560px; }
+      .rm-points { grid-template-columns: repeat(4, minmax(110px, 1fr)); }
       .rm-popup-list { columns: 1; }
       footer { padding: 18px 20px; flex-direction: column; gap: 6px; }
     }
@@ -1070,26 +1082,30 @@ export default function Portfolio() {
           <div className="stitle fu">Professional Journey</div>
           <div className="journey-wrap fu">
             <div className="roadmap-h">
-              <div className="rm-line" />
-              <div className="rm-points">
-                {roadmap.map((r, i) => (
-                  <div className="rm-point" key={r.year}>
-                    <button
-                      className={`rm-dot ${activeRoadmap === i ? "active" : ""}`}
-                      onMouseEnter={() => {
-                        setActiveRoadmap(i);
-                        setHov(true);
-                      }}
-                      onMouseLeave={() => setHov(false)}
-                      onClick={() => setActiveRoadmap(i)}
-                      aria-label={`${r.year} details`}
-                    >
-                      <r.icon />
-                    </button>
-                    <div className="rm-point-year">{r.year}</div>
-                    <div className="rm-point-period">{r.period}</div>
+              <div className="rm-scroll">
+                <div className="rm-track">
+                  <div className="rm-line" />
+                  <div className="rm-points">
+                    {roadmap.map((r, i) => (
+                      <div className="rm-point" key={r.year}>
+                        <button
+                          className={`rm-dot ${activeRoadmap === i ? "active" : ""}`}
+                          onMouseEnter={() => {
+                            setActiveRoadmap(i);
+                            setHov(true);
+                          }}
+                          onMouseLeave={() => setHov(false)}
+                          onClick={() => setActiveRoadmap(i)}
+                          aria-label={`${r.year} details`}
+                        >
+                          <r.icon />
+                        </button>
+                        <div className="rm-point-year">{r.year}</div>
+                        <div className="rm-point-period">{r.period}</div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
 
               <div className="rm-popup">
