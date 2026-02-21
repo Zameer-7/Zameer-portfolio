@@ -403,6 +403,8 @@ export default function Portfolio() {
       letter-spacing: .2px;
       line-height: 1;
       box-shadow: 0 4px 16px rgba(0,173,181,.4);
+      text-decoration: none;
+      border: none;
     }
     .nl { display: flex; gap: 36px; }
     .nl a { color: rgba(238,238,238,.78); font-size: 12px; text-decoration: none; letter-spacing: 2.8px; text-transform: uppercase; transition: color .2s; font-weight: 600; }
@@ -963,7 +965,9 @@ export default function Portfolio() {
         <div ref={ballRef} className={`ball${hov ? " h" : ""}`} />
 
         <nav>
-          <div className="logo">MZ</div>
+          <a href="#about" className="logo" aria-label="Go to top" {...H}>
+            MZ
+          </a>
           <div className="nl">
             {["About", "Skills", "Projects", "Education", "Journey", "Contact"].map((l) => (
               <a key={l} href={`#${l.toLowerCase()}`} {...H}>
@@ -985,11 +989,11 @@ export default function Portfolio() {
               <div className="hrole">
                 AI & Machine Learning <em>Engineer</em>
               </div>
-              <p className="hdesc">
-                Final-year B.E. student in AI & ML at SVIT, building intelligent systems across NLP, predictive
-                modeling, and deep-learning-based medical imaging. Currently working as an AI/ML intern at
-                Innovitegra Solutions. CGPA 8.7 · CSI Member.
-              </p>
+            <p className="hdesc">
+                Final-year AI & ML Engineer from Sai Vidya Institute of Technology (SVIT), currently working as an
+                AI/ML intern at Innovitegra Solutions and contributing to real-world data systems and intelligent
+                decision workflows. Passionate about building scalable, production-ready AI solutions.
+            </p>
               <div className="hcta">
                 <a
                   href="https://www.linkedin.com/in/mohamed-zameer-z"
