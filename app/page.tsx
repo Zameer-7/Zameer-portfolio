@@ -260,10 +260,14 @@ const roadmap = [
 export default function Portfolio() {
   const [hov, setHov] = useState(false);
   const [activeRoadmap, setActiveRoadmap] = useState(0);
-  const [heroImgMissing, setHeroImgMissing] = useState(false);
   const ballRef = useRef<HTMLDivElement | null>(null);
   const mouseRef = useRef({ x: -100, y: -100 });
   const rafRef = useRef<number | null>(null);
+  const heroSlides = ["/profile-ieee-old.jpeg", "/profile-ieee.jpeg"];
+  const [heroSlideErrors, setHeroSlideErrors] = useState<Record<string, boolean>>({});
+  const [heroSlide, setHeroSlide] = useState(0);
+  const availableHeroSlides = heroSlides.filter((s) => !heroSlideErrors[s]);
+  const activeHeroSlide = availableHeroSlides.length > 0 ? heroSlide % availableHeroSlides.length : 0;
 
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
@@ -305,6 +309,14 @@ export default function Portfolio() {
     els.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (availableHeroSlides.length <= 1) return;
+    const id = window.setInterval(() => {
+      setHeroSlide((prev) => (prev + 1) % availableHeroSlides.length);
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, [availableHeroSlides.length]);
 
   const H = { onMouseEnter: () => setHov(true), onMouseLeave: () => setHov(false) };
 
@@ -496,6 +508,22 @@ export default function Portfolio() {
       font-size: 12px;
       line-height: 1.7;
     }
+    .hero-slide-dots {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+    .hero-slide-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,173,181,.5);
+      background: transparent;
+      padding: 0;
+      cursor: none;
+    }
+    .hero-slide-dot.active { background: var(--gold); box-shadow: 0 0 10px rgba(0,173,181,.45); }
 
     .hbadge {
       display: inline-flex; align-items: center; gap: 10px;
@@ -922,7 +950,7 @@ export default function Portfolio() {
     @media (hover: none), (pointer: coarse) {
       body { cursor: auto; }
       .ball { display: none; }
-      .bp, .bo, .rm-dot, .cl { cursor: pointer; }
+      .bp, .bo, .rm-dot, .cl, .hero-slide-dot { cursor: pointer; }
     }
   `;
 
@@ -991,20 +1019,38 @@ export default function Portfolio() {
             </div>
             <div className="hero-photo-wrap fu">
               <figure className="hero-photo-card">
-                {heroImgMissing ? (
+                {availableHeroSlides.length === 0 ? (
                   <div className="hero-photo-fallback">
-                    Place your image at
+                    Place your images at
                     <br />
-                    <code>public/profile-ieee.jpeg</code>
+                    <code>public/profile-ieee-old.jpeg</code> and <code>public/profile-ieee.jpeg</code>
                   </div>
                 ) : (
                   <Image
-                    src="/profile-ieee.jpeg"
+                    src={availableHeroSlides[activeHeroSlide]}
                     alt="Mohamed Zameer at IEEE Bangalore Section event"
                     width={900}
                     height={1400}
-                    onError={() => setHeroImgMissing(true)}
+                    onError={() =>
+                      setHeroSlideErrors((prev) => ({
+                        ...prev,
+                        [availableHeroSlides[activeHeroSlide]]: true,
+                      }))
+                    }
                   />
+                )}
+                {availableHeroSlides.length > 1 && (
+                  <div className="hero-slide-dots">
+                    {availableHeroSlides.map((_, i) => (
+                      <button
+                        key={i}
+                        className={`hero-slide-dot ${activeHeroSlide === i ? "active" : ""}`}
+                        aria-label={`Show slide ${i + 1}`}
+                        onClick={() => setHeroSlide(i)}
+                        {...H}
+                      />
+                    ))}
+                  </div>
                 )}
               </figure>
             </div>
