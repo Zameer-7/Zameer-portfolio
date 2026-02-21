@@ -441,6 +441,7 @@ export default function Portfolio() {
     }
     .hero-photo-card {
       width: min(430px, 92%);
+      max-width: 100%;
       border: 1px solid rgba(0,173,181,.34);
       background: linear-gradient(165deg, rgba(0,173,181,.12), rgba(34,40,49,.72));
       padding: 12px;
@@ -502,6 +503,7 @@ export default function Portfolio() {
       background: rgba(0,173,181,.14);
       padding: 7px 18px; margin-bottom: 28px;
       font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold);
+      max-width: 100%;
     }
     .hbdot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: bk 2s infinite; }
     @keyframes bk { 0%,100%{opacity:1;} 50%{opacity:.2;} }
@@ -515,6 +517,7 @@ export default function Portfolio() {
       color: #fff;
       text-shadow: 0 2px 40px rgba(34,40,49,.3);
       white-space: nowrap;
+      max-width: 100%;
     }
     .aw {
       color: var(--gold);
@@ -869,18 +872,48 @@ export default function Portfolio() {
     .fv { opacity: 1; transform: none; }
 
     @media (max-width: 860px) {
-      nav { padding: 14px 20px; } .nl { display: none; }
-      .logo { font-size: 16px; padding: 5px 10px; }
-      .hero { padding: 96px 20px 56px; } .hside { display: none; }
+      nav { padding: 12px 14px; } .nl { display: none; }
+      .logo { font-size: 15px; padding: 5px 9px; }
+      .hero { padding: 88px 16px 48px; } .hside { display: none; }
       .hero-inner { grid-template-columns: 1fr; }
       .hero-photo-wrap { justify-content: center; transform: none; }
       .hero-photo-card { width: min(420px, 100%); margin-top: 8px; }
-      section { padding: 48px 20px; }
+      .hbadge {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 8.5px;
+        letter-spacing: 1.8px;
+        text-align: center;
+        line-height: 1.5;
+        white-space: normal;
+      }
+      h1 {
+        font-size: clamp(32px, 11.2vw, 52px);
+        letter-spacing: -0.8px;
+        line-height: 1.03;
+        white-space: normal;
+      }
+      .hrole {
+        font-size: clamp(17px, 6.2vw, 28px);
+        margin-bottom: 14px;
+      }
+      .hdesc {
+        font-size: 13px;
+        line-height: 1.65;
+        margin-bottom: 24px;
+      }
+      .hcta { margin-bottom: 28px; }
+      .stat-row {
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      section { padding: 44px 16px; }
       .sg, .pg, .eg, .smin { grid-template-columns: 1fr; }
       .pc:last-child { grid-column: auto; }
       .brtgs { padding-left: 0; }
       .edu-head { grid-template-columns: 1fr; gap: 10px; }
-      .rm-track { min-width: 560px; }
+      .rm-track { min-width: 520px; }
       .rm-points { grid-template-columns: repeat(4, minmax(110px, 1fr)); }
       .rm-popup-list { columns: 1; }
       footer { padding: 18px 20px; flex-direction: column; gap: 6px; }
