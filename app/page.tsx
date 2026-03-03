@@ -1,8 +1,9 @@
 ﻿"use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { AppWindow, BrainCircuit, ChartColumnIncreasing, Code2, Database, Flame, Microscope, Rocket, Target, Wrench } from "lucide-react";
+import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
+import { AppWindow, ArrowUpRight, BrainCircuit, ChartColumnIncreasing, Code2, Database, Flame, Microscope, Rocket, Target, Wrench, X } from "lucide-react";
 
 const LinkedInIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -148,62 +149,142 @@ const skills = [
 const projects = [
   {
     num: "01",
-    badge: "NLP · ML",
+    badge: "NLP - ML",
     title: "AI Resume Screener",
     desc: "Built an NLP-based screening system using TF-IDF and cosine similarity to identify skill gaps, with XGBoost classification and SHAP-based explainability.",
+    problem:
+      "Recruiters spend significant time manually shortlisting resumes and often miss context between candidate profiles and role expectations.",
+    architecture:
+      "Implemented a two-stage NLP pipeline: TF-IDF + cosine similarity for semantic matching, followed by XGBoost scoring and SHAP interpretation.",
     tech: ["Python", "TF-IDF", "XGBoost", "SHAP", "NLP"],
-    brief: [
-      "Designed a resume-job matching flow using TF-IDF vectors and cosine similarity scoring.",
-      "Implemented a classification layer with XGBoost to rank candidate relevance.",
-      "Added SHAP-based interpretation to explain skill-gap and ranking decisions.",
-      "Structured the pipeline for faster recruiter screening and shortlisting support.",
+    keyFeatures: [
+      "Resume-to-JD similarity scoring",
+      "Candidate relevance classification",
+      "Explainable recommendations using SHAP",
+      "Skill-gap visibility for hiring teams",
     ],
+    results: [
+      "Reduced manual screening effort through automated ranking",
+      "Improved shortlisting consistency with explainable scoring",
+    ],
+    challenges: [
+      {
+        challenge: "Keyword mismatch between resumes and job descriptions",
+        solution: "Applied TF-IDF vectorization with cosine similarity for context-aware text comparison",
+      },
+      {
+        challenge: "Low trust in black-box scoring",
+        solution: "Integrated SHAP to provide transparent feature-level explanations",
+      },
+    ],
+    github: "https://github.com/Zameer-7",
+    demo: "",
   },
   {
     num: "02",
-    badge: "Regression · EDA",
+    badge: "Regression - EDA",
     title: "BigMart Sales Prediction",
     desc: "Developed an end-to-end regression pipeline on historical BigMart data, covering EDA, preprocessing, model training, and evaluation for inventory planning.",
+    problem:
+      "Retail demand planning requires reliable product-level sales forecasts to reduce overstocking and stockouts.",
+    architecture:
+      "Built a structured regression workflow with EDA, feature engineering, preprocessing, model selection, and evaluation.",
     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "EDA"],
-    brief: [
-      "Performed data cleaning, feature engineering, and outlier handling on retail sales data.",
-      "Built and validated regression models to forecast item-level sales performance.",
-      "Compared model metrics and selected a stable configuration for planning scenarios.",
-      "Delivered insights to support inventory and demand planning decisions.",
+    keyFeatures: [
+      "Data quality checks and outlier handling",
+      "Feature engineering for sales drivers",
+      "Comparative model evaluation",
+      "Actionable insights for inventory planning",
     ],
+    results: [
+      "Delivered stable forecasting pipeline for item-level prediction",
+      "Enabled data-backed planning decisions for inventory teams",
+    ],
+    challenges: [
+      {
+        challenge: "Noisy retail features and missing values",
+        solution: "Used robust preprocessing strategy and feature normalization",
+      },
+      {
+        challenge: "Model variance across product categories",
+        solution: "Benchmarked multiple regressors and selected the most stable performer",
+      },
+    ],
+    github: "https://github.com/Zameer-7",
+    demo: "",
   },
   {
     num: "03",
-    badge: "Deep Learning · CV",
+    badge: "Deep Learning - CV",
     title: "Chest X-Ray Pneumonia Detection",
     desc: "Implemented a DenseNet121-based binary classifier for chest X-ray analysis, integrated Grad-CAM for explainability, and deployed the solution with Streamlit.",
+    problem:
+      "Clinical screening support tools need high-confidence image classification with interpretable outputs for medical validation.",
+    architecture:
+      "Fine-tuned DenseNet121 with transfer learning and augmentation, then layered Grad-CAM visualization and Streamlit deployment.",
     tech: ["DenseNet121", "Grad-CAM", "Streamlit", "Deep Learning"],
-    brief: [
-      "Trained a DenseNet121-based model for binary pneumonia classification on X-ray images.",
-      "Applied augmentation and transfer learning to improve generalization.",
-      "Integrated Grad-CAM visual explanations to highlight model attention regions.",
-      "Packaged the inference workflow into a Streamlit app for practical usage.",
+    keyFeatures: [
+      "DenseNet121 transfer-learning pipeline",
+      "Image augmentation for generalization",
+      "Grad-CAM explainability overlays",
+      "Interactive Streamlit inference UI",
     ],
+    results: [
+      "Improved classification reliability through augmentation + fine-tuning",
+      "Provided visual explanation overlays for clinician-friendly review",
+    ],
+    challenges: [
+      {
+        challenge: "Limited labeled data and class imbalance",
+        solution: "Applied augmentation and balanced training strategy",
+      },
+      {
+        challenge: "Need for interpretability in medical context",
+        solution: "Integrated Grad-CAM to expose activation regions behind predictions",
+      },
+    ],
+    github: "https://github.com/Zameer-7",
+    demo: "",
   },
   {
     num: "04",
-    badge: "Fraud Detection · FinTech",
+    badge: "Fraud Detection - FinTech",
     title: "FRMS - Fraud Risk Management System",
     desc: "Designed and implemented an FRMS pipeline during internship to detect suspicious transaction patterns with scalable, analytics-ready data architecture.",
+    problem:
+      "Fraud monitoring systems require near real-time detection, traceability, and scalable storage for high-volume transaction streams.",
+    architecture:
+      "Designed ingestion + risk-evaluation flow with Python services and containerized deployment, backed by PostgreSQL/MySQL/ClickHouse.",
     tech: ["Python", "Docker", "PostgreSQL", "MySQL", "ClickHouse", "Fraud Detection"],
-    brief: [
-      "Built ingestion and processing components for suspicious transaction detection workflows.",
-      "Designed a data layer using PostgreSQL, MySQL, and ClickHouse for analytics workloads.",
-      "Containerized services with Docker to support consistent deployment and scaling.",
-      "Focused on low-latency querying and traceable risk-rule execution.",
+    keyFeatures: [
+      "Transaction risk-rule pipeline",
+      "Multi-database architecture for ops + analytics",
+      "Containerized deployment using Docker",
+      "Traceable detection logic for auditability",
     ],
+    results: [
+      "Established scalable FRMS base architecture during internship",
+      "Improved detection-readiness and query performance for analytics use cases",
+    ],
+    challenges: [
+      {
+        challenge: "Balancing write-heavy ingestion with analytical querying",
+        solution: "Separated storage concerns across transactional and analytical databases",
+      },
+      {
+        challenge: "Operational consistency across environments",
+        solution: "Containerized services and standardized runtime configurations",
+      },
+    ],
+    github: "https://github.com/Zameer-7",
+    demo: "",
   },
 ];
 
 const certs = [
-  { name: "Exploratory Data Analysis for ML", detail: "30hr · Certisured, SVIT" },
-  { name: "Intuition Building for Machine Learning", detail: "40hr · Analogica, SVIT" },
-  { name: "Deep Learning", detail: "12-week · NPTEL, IIT Ropar" },
+  { name: "Exploratory Data Analysis for ML", detail: "30hr ? Certisured, SVIT" },
+  { name: "Intuition Building for Machine Learning", detail: "40hr ? Analogica, SVIT" },
+  { name: "Deep Learning", detail: "12-week ? NPTEL, IIT Ropar" },
   { name: "Artificial Intelligence Fundamentals", detail: "IBM SkillBuild" },
 ];
 
@@ -283,8 +364,8 @@ const roadmap = [
 
 export default function Portfolio() {
   const [hov, setHov] = useState(false);
-  const [activeProject, setActiveProject] = useState(0);
-  const [isProjectBriefOpen, setIsProjectBriefOpen] = useState(true);
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState<number | null>(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [activeRoadmap, setActiveRoadmap] = useState(0);
   const ballRef = useRef<HTMLDivElement | null>(null);
   const mouseRef = useRef({ x: -100, y: -100 });
@@ -295,14 +376,19 @@ export default function Portfolio() {
   const availableHeroSlides = heroSlides.filter((s) => !heroSlideErrors[s]);
   const activeHeroSlide = availableHeroSlides.length > 0 ? heroSlide % availableHeroSlides.length : 0;
 
-  const handleProjectSelect = (index: number) => {
-    if (index === activeProject) {
-      setIsProjectBriefOpen((prev) => !prev);
-      return;
-    }
-    setActiveProject(index);
-    setIsProjectBriefOpen(true);
-  };
+  const selectedProject = useMemo(
+    () => (selectedProjectIndex === null ? null : projects[selectedProjectIndex]),
+    [selectedProjectIndex],
+  );
+
+  const openProjectModal = useCallback((index: number) => {
+    setSelectedProjectIndex(index);
+    setIsProjectModalOpen(true);
+  }, []);
+
+  const closeProjectModal = useCallback(() => {
+    setIsProjectModalOpen(false);
+  }, []);
 
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
@@ -352,6 +438,25 @@ export default function Portfolio() {
     }, 3500);
     return () => window.clearInterval(id);
   }, [availableHeroSlides.length]);
+
+  useEffect(() => {
+    if (!isProjectModalOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeProjectModal();
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isProjectModalOpen, closeProjectModal]);
 
   const H = { onMouseEnter: () => setHov(true), onMouseLeave: () => setHov(false) };
 
@@ -697,15 +802,32 @@ export default function Portfolio() {
     .smcat { font-family: 'Satoshi', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 7px; }
     .smtg { font-size: 10px; color: rgba(238,238,238,.58); }
     .smtg:not(:last-child)::after { content: ' ·\\00a0'; }
-
     .pg { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
-    .pc { padding: 38px 34px; position: relative; overflow: hidden; transition: all .3s; }
-    .pc:last-child { grid-column: 1/-1; }
-    .pc:hover { transform: translateY(-3px); }
-    .pc.active {
-      border-color: rgba(0,173,181,.65);
-      box-shadow: inset 0 0 0 1px rgba(0,173,181,.25), 0 8px 26px rgba(0,0,0,.22);
+    .pc {
+      padding: 34px 30px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,173,181,.24);
+      background: linear-gradient(155deg, rgba(34,40,49,.62), rgba(15,23,42,.8));
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+      cursor: none;
     }
+    .pc:last-child { grid-column: 1/-1; }
+    .pc::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: radial-gradient(circle at top right, rgba(0,173,181,.18), transparent 55%);
+      transition: opacity .3s ease;
+      pointer-events: none;
+    }
+    .pc:hover {
+      transform: scale(1.02);
+      border-color: rgba(0,173,181,.56);
+      box-shadow: 0 14px 36px rgba(0,0,0,.32), 0 0 0 1px rgba(0,173,181,.2);
+    }
+    .pc:hover::before { opacity: 1; }
     .pcard-btn {
       width: 100%; display: block; text-align: left;
       background: transparent; border: 0; color: inherit;
@@ -713,8 +835,8 @@ export default function Portfolio() {
     }
     .pnum { font-family: 'Satoshi', sans-serif; font-size: 54px; font-weight: 900; color: rgba(0,173,181,.16); position: absolute; top: 18px; right: 24px; line-height: 1; }
     .pbadge { display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(0,173,181,.4); padding: 3px 10px; margin-bottom: 16px; background: rgba(0,173,181,.14); }
-    .ptitle { font-family: 'Satoshi', sans-serif; font-size: 21px; font-weight: 900; margin-bottom: 14px; letter-spacing: -.5px; color: #fff; }
-    .pdesc { font-size: 12.5px; color: rgba(238,238,238,.68); line-height: 1.85; margin-bottom: 22px; font-weight: 300; }
+    .ptitle { font-family: 'Satoshi', sans-serif; font-size: 22px; font-weight: 900; margin-bottom: 12px; letter-spacing: -.4px; color: #fff; }
+    .pdesc { font-size: 13px; color: rgba(238,238,238,.72); line-height: 1.75; margin-bottom: 20px; font-weight: 300; max-width: 94%; }
     .ptechs { display: flex; flex-wrap: wrap; gap: 5px; }
     .ptag {
       font-size: 9.5px;
@@ -725,81 +847,195 @@ export default function Portfolio() {
       letter-spacing: 1px;
       text-transform: uppercase;
     }
+    .pc-view-btn {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(0,173,181,.42);
+      background: rgba(0,173,181,.12);
+      color: var(--light);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      transition: background .3s ease, border-color .3s ease, color .3s ease;
+    }
+    .pc-view-btn svg {
+      width: 14px;
+      height: 14px;
+      transition: transform .3s ease;
+    }
+    .pc-view-btn:hover {
+      background: rgba(0,173,181,.2);
+      border-color: rgba(0,173,181,.65);
+      color: #fff;
+    }
+    .pc-view-btn:hover svg { transform: translateX(2px) translateY(-2px); }
 
-    .project-brief {
-      margin-top: 12px;
-      border: 1px solid rgba(0,173,181,.32);
-      background: linear-gradient(145deg, rgba(16,26,44,.72), rgba(10,16,30,.82));
-      padding: 20px 22px;
-      position: relative;
-      overflow: hidden;
-      max-height: 540px;
-      opacity: 1;
-      transition: max-height .35s ease, opacity .25s ease, margin-top .25s ease, padding .25s ease, border-color .25s ease;
+    .project-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      background: rgba(5,10,20,.58);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
     }
-    .project-brief.closed {
-      max-height: 0;
-      opacity: 0;
-      margin-top: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-      border-color: transparent;
-      pointer-events: none;
+    .project-modal {
+      width: min(980px, 100%);
+      max-height: min(90vh, 920px);
+      overflow: auto;
+      border-radius: 1rem;
+      border: 1px solid rgba(0,173,181,.35);
+      background: linear-gradient(160deg, rgba(20,28,44,.92), rgba(10,16,30,.95));
+      box-shadow: 0 28px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+      padding: 24px;
     }
-    .project-brief-inner {
-      overflow: hidden;
+    .project-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(0,173,181,.2);
+      padding-bottom: 14px;
     }
-    .project-brief::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 3px;
-      height: 100%;
-      background: linear-gradient(180deg, var(--gold), transparent 75%);
+    .project-modal-kicker {
+      font-size: 10px;
+      letter-spacing: 2.3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px;
     }
-    .project-brief-top { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin-bottom: 10px; padding-left: 8px; }
-    .project-brief-label { font-size: 10px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--gold); }
-    .project-brief-title { font-family: 'Satoshi', sans-serif; font-size: 21px; font-weight: 800; letter-spacing: -.4px; color: #fff; }
-    .project-brief-list {
-      list-style: none;
+    .project-modal-title {
+      font-family: 'Satoshi', sans-serif;
+      font-size: clamp(24px, 3.6vw, 34px);
+      letter-spacing: -.7px;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    .project-modal-sub {
+      font-size: 12.5px;
+      color: rgba(238,238,238,.64);
+      line-height: 1.65;
+    }
+    .project-modal-close {
+      border: 1px solid rgba(0,173,181,.35);
+      background: rgba(0,173,181,.1);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      transition: all .25s ease;
+    }
+    .project-modal-close:hover {
+      border-color: rgba(0,173,181,.65);
+      background: rgba(0,173,181,.2);
+      color: #fff;
+    }
+    .project-modal-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px 18px;
-      padding-left: 8px;
+      gap: 14px;
     }
-    .project-brief-list li {
-      font-size: 12px;
-      color: rgba(238,238,238,.8);
-      line-height: 1.65;
+    .project-modal-block {
+      border: 1px solid rgba(0,173,181,.22);
+      background: rgba(12,19,35,.55);
+      padding: 14px;
+      border-radius: 14px;
+    }
+    .project-modal-block.full { grid-column: 1 / -1; }
+    .project-modal-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .project-modal-text {
+      font-size: 13px;
+      color: rgba(238,238,238,.84);
+      line-height: 1.7;
+    }
+    .project-modal-list {
+      list-style: none;
+      display: grid;
+      gap: 7px;
+    }
+    .project-modal-list li {
       display: flex;
-      gap: 8px;
       align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      color: rgba(238,238,238,.84);
+      line-height: 1.6;
     }
-    .project-brief-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 7px; flex-shrink: 0; }
-    .project-brief-inline {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      border-top: 1px solid transparent;
-      margin-top: 0;
-      transition: max-height .35s ease, opacity .25s ease, margin-top .25s ease, border-color .25s ease, padding-top .25s ease;
-      padding-top: 0;
+    .project-modal-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-top: 7px;
+      background: var(--gold);
+      flex-shrink: 0;
     }
-    .project-brief-inline.open {
-      max-height: 360px;
-      opacity: 1;
-      margin-top: 14px;
-      border-top-color: rgba(0,173,181,.28);
-      padding-top: 12px;
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
     }
-    .project-brief-inline .project-brief-list {
-      grid-template-columns: 1fr;
-      gap: 7px 12px;
-      padding-left: 0;
-    }
-    .project-brief-inline .project-brief-list li {
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 12px;
+      border: 1px solid rgba(0,173,181,.4);
+      background: rgba(0,173,181,.11);
+      color: #fff;
+      text-decoration: none;
       font-size: 11px;
+      letter-spacing: .9px;
+      text-transform: uppercase;
+      transition: all .25s ease;
+    }
+    .project-link:hover {
+      border-color: rgba(0,173,181,.75);
+      background: rgba(0,173,181,.2);
+      transform: translateY(-1px);
+    }
+    .project-link.muted {
+      opacity: .6;
+      pointer-events: none;
+    }
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .challenge-item {
+      border: 1px solid rgba(0,173,181,.2);
+      background: rgba(12,19,35,.45);
+      border-radius: 12px;
+      padding: 10px 11px;
+    }
+    .challenge-title {
+      color: #fff;
+      font-size: 11px;
+      margin-bottom: 5px;
+      letter-spacing: .3px;
+      font-weight: 700;
+    }
+    .challenge-solution {
+      color: rgba(238,238,238,.77);
+      font-size: 11.5px;
       line-height: 1.55;
     }
 
@@ -1062,7 +1298,11 @@ export default function Portfolio() {
       section { padding: 44px 16px; }
       .sg, .pg, .eg, .smin { grid-template-columns: 1fr; }
       .pc:last-child { grid-column: auto; }
-      .project-brief-list { grid-template-columns: 1fr; }
+      .pc { padding: 24px 20px; }
+      .pdesc { max-width: 100%; }
+      .project-modal { width: 100%; max-height: 92vh; padding: 16px; border-radius: 14px; }
+      .project-modal-grid { grid-template-columns: 1fr; }
+      .challenge-grid { grid-template-columns: 1fr; }
       .brtgs { padding-left: 0; }
       .edu-head { grid-template-columns: 1fr; gap: 10px; }
       .rm-track { min-width: 520px; }
@@ -1074,7 +1314,7 @@ export default function Portfolio() {
     @media (hover: none), (pointer: coarse) {
       body { cursor: auto; }
       .ball { display: none; }
-      .bp, .bo, .rm-dot, .cl, .hero-slide-dot { cursor: pointer; }
+      .bp, .bo, .rm-dot, .cl, .hero-slide-dot, .pc, .pcard-btn, .pc-view-btn, .project-modal-close, .project-link { cursor: pointer; }
     }
   `;
 
@@ -1083,6 +1323,7 @@ export default function Portfolio() {
       <style>{css}</style>
       <Glitter />
 
+      <LazyMotion features={domAnimation}>
       <div style={{ position: "relative", zIndex: 1 }}>
         <div ref={ballRef} className={`ball${hov ? " h" : ""}`} />
 
@@ -1103,7 +1344,7 @@ export default function Portfolio() {
           <div className="hero-inner">
             <div className="hc">
               <div className="hbadge">
-              <span className="hbdot" />AI/ML Intern at Innovitegra Solutions · Open to Full-Time Roles (2026)
+              <span className="hbdot" />AI/ML Intern at Innovitegra Solutions ? Open to Full-Time Roles (2026)
               </div>
             <h1>
               Mohamed <span className="aw">Zameer</span> Z
@@ -1218,8 +1459,24 @@ export default function Portfolio() {
           <div className="stitle fu">Project Portfolio</div>
           <div className="pg">
             {projects.map((p, i) => (
-              <div key={i} className={`pc gcard fu ${activeProject === i ? "active" : ""}`}>
-                <button type="button" className="pcard-btn" onClick={() => handleProjectSelect(i)} aria-expanded={activeProject === i && isProjectBriefOpen} {...H}>
+              <m.article
+                key={p.num}
+                className="pc gcard fu"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                onClick={() => openProjectModal(i)}
+                onMouseEnter={() => setHov(true)}
+                onMouseLeave={() => setHov(false)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openProjectModal(i);
+                  }
+                }}
+              >
+                <div className="pcard-btn" {...H}>
                   <div className="pnum">{p.num}</div>
                   <div className="pbadge">{p.badge}</div>
                   <div className="ptitle">{p.title}</div>
@@ -1231,21 +1488,22 @@ export default function Portfolio() {
                       </span>
                     ))}
                   </div>
-                </button>
-                <div className={`project-brief-inline ${activeProject === i && isProjectBriefOpen ? "open" : ""}`}>
-                  <div className="project-brief-top">
-                    <span className="project-brief-label">Project Brief</span>
-                  </div>
-                  <ul className="project-brief-list">
-                    {p.brief.map((item) => (
-                      <li key={item}>
-                        <span className="project-brief-dot" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <m.button
+                    type="button"
+                    className="pc-view-btn"
+                    whileHover={{ x: 2 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      openProjectModal(i);
+                    }}
+                    {...H}
+                  >
+                    View Details
+                    <ArrowUpRight />
+                  </m.button>
                 </div>
-              </div>
+              </m.article>
             ))}
           </div>
         </section>
@@ -1404,12 +1662,123 @@ export default function Portfolio() {
 
         <footer>
           <span>© 2026 Mohamed Zameer Z</span>
-          <span>AI & Machine Learning · SVIT</span>
+          <span>AI & Machine Learning ? SVIT</span>
         </footer>
       </div>
+      <AnimatePresence>
+        {isProjectModalOpen && selectedProject && (
+          <m.div
+            className="project-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={closeProjectModal}
+          >
+            <m.div
+              className="project-modal"
+              initial={{ opacity: 0, scale: 0.96, y: 18 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: 10 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="project-modal-header">
+                <div>
+                  <div className="project-modal-kicker">{selectedProject.badge}</div>
+                  <h3 className="project-modal-title">{selectedProject.title}</h3>
+                  <p className="project-modal-sub">{selectedProject.desc}</p>
+                </div>
+                <button type="button" className="project-modal-close" onClick={closeProjectModal} aria-label="Close project details">
+                  <X size={16} />
+                </button>
+              </div>
+
+              <div className="project-modal-grid">
+                <div className="project-modal-block">
+                  <div className="project-modal-label">Problem Statement</div>
+                  <p className="project-modal-text">{selectedProject.problem}</p>
+                </div>
+                <div className="project-modal-block">
+                  <div className="project-modal-label">Architecture / Approach</div>
+                  <p className="project-modal-text">{selectedProject.architecture}</p>
+                </div>
+
+                <div className="project-modal-block">
+                  <div className="project-modal-label">Tech Stack</div>
+                  <div className="ptechs">
+                    {selectedProject.tech.map((stack) => (
+                      <span className="ptag" key={stack}>
+                        {stack}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="project-modal-block">
+                  <div className="project-modal-label">Key Features</div>
+                  <ul className="project-modal-list">
+                    {selectedProject.keyFeatures.map((feature) => (
+                      <li key={feature}>
+                        <span className="project-modal-dot" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="project-modal-block">
+                  <div className="project-modal-label">Results / Metrics</div>
+                  <ul className="project-modal-list">
+                    {selectedProject.results.map((result) => (
+                      <li key={result}>
+                        <span className="project-modal-dot" />
+                        <span>{result}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="project-modal-block">
+                  <div className="project-modal-label">Challenges & Solutions</div>
+                  <div className="challenge-grid">
+                    {selectedProject.challenges.map((item) => (
+                      <div className="challenge-item" key={item.challenge}>
+                        <div className="challenge-title">{item.challenge}</div>
+                        <div className="challenge-solution">{item.solution}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="project-modal-block full">
+                  <div className="project-modal-label">Links</div>
+                  <div className="project-links">
+                    <a className="project-link" href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                      GitHub
+                      <ArrowUpRight size={14} />
+                    </a>
+                    {selectedProject.demo ? (
+                      <a className="project-link" href={selectedProject.demo} target="_blank" rel="noopener noreferrer">
+                        Live Demo
+                        <ArrowUpRight size={14} />
+                      </a>
+                    ) : (
+                      <span className="project-link muted">Live Demo Unavailable</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </m.div>
+          </m.div>
+        )}
+      </AnimatePresence>
+      </LazyMotion>
     </>
   );
 }
+
+
 
 
 
