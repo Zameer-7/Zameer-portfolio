@@ -777,6 +777,31 @@ export default function Portfolio() {
       align-items: flex-start;
     }
     .project-brief-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 7px; flex-shrink: 0; }
+    .project-brief-inline {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      border-top: 1px solid transparent;
+      margin-top: 0;
+      transition: max-height .35s ease, opacity .25s ease, margin-top .25s ease, border-color .25s ease, padding-top .25s ease;
+      padding-top: 0;
+    }
+    .project-brief-inline.open {
+      max-height: 360px;
+      opacity: 1;
+      margin-top: 14px;
+      border-top-color: rgba(0,173,181,.28);
+      padding-top: 12px;
+    }
+    .project-brief-inline .project-brief-list {
+      grid-template-columns: 1fr;
+      gap: 7px 12px;
+      padding-left: 0;
+    }
+    .project-brief-inline .project-brief-list li {
+      font-size: 11px;
+      line-height: 1.55;
+    }
 
     .eg { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
     .ec { padding: 34px; transition: all .3s; }
@@ -1207,24 +1232,21 @@ export default function Portfolio() {
                     ))}
                   </div>
                 </button>
+                <div className={`project-brief-inline ${activeProject === i && isProjectBriefOpen ? "open" : ""}`}>
+                  <div className="project-brief-top">
+                    <span className="project-brief-label">Project Brief</span>
+                  </div>
+                  <ul className="project-brief-list">
+                    {p.brief.map((item) => (
+                      <li key={item}>
+                        <span className="project-brief-dot" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
-          </div>
-          <div className={`project-brief fu ${isProjectBriefOpen ? "open" : "closed"}`}>
-            <div className="project-brief-inner">
-              <div className="project-brief-top">
-                <span className="project-brief-label">Project Brief</span>
-                <span className="project-brief-title">{projects[activeProject].title}</span>
-              </div>
-              <ul className="project-brief-list">
-                {projects[activeProject].brief.map((item) => (
-                  <li key={item}>
-                    <span className="project-brief-dot" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </section>
 
