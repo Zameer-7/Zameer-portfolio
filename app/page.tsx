@@ -90,9 +90,9 @@ function Glitter() {
 
         ctx.save();
         ctx.globalAlpha = Math.max(0, Math.min(1, p.opacity)) * 0.85;
-        ctx.fillStyle = p.tone === "accent" ? `rgba(0,173,181,${p.opacity})` : `rgba(57,62,70,${p.opacity})`;
+        ctx.fillStyle = p.tone === "accent" ? `rgba(37,99,235,${p.opacity})` : `rgba(57,62,70,${p.opacity})`;
         ctx.shadowBlur = p.tone === "accent" ? 5 : 3;
-        ctx.shadowColor = p.tone === "accent" ? "#00ADB5" : "#393E46";
+        ctx.shadowColor = p.tone === "accent" ? "#14B8A6" : "#393E46";
         if (p.shape === "diamond") {
           ctx.translate(p.x, p.y);
           ctx.rotate(p.angle);
@@ -113,7 +113,7 @@ function Glitter() {
           const dy = a.y - b.y;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < 90) {
-            ctx.strokeStyle = `rgba(0,173,181,${(1 - d / 90) * 0.09})`;
+            ctx.strokeStyle = `rgba(37,99,235,${(1 - d / 90) * 0.09})`;
             ctx.lineWidth = 0.55;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -326,21 +326,21 @@ export default function Portfolio() {
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red:    #222831;
-      --red2:   #393E46;
-      --redbg:  #222831;
-      --redbg2: #393E46;
-      --light:  #EEEEEE;
-      --cream:  #EEEEEE;
-      --muted:  rgba(238,238,238,0.62);
-      --card:   rgba(34,40,49,0.55);
-      --border: rgba(0,173,181,0.28);
-      --gold:   #00ADB5;
+      --red:    #0B1220;
+      --red2:   #111827;
+      --redbg:  #0B1220;
+      --redbg2: #111827;
+      --light:  #E6F7F5;
+      --cream:  #E6F7F5;
+      --muted:  rgba(241,245,249,0.72);
+      --card:   rgba(11,18,32,0.65);
+      --border: rgba(37,99,235,0.25);
+      --gold:   #14B8A6;
     }
 
     html { scroll-behavior: smooth; }
     body {
-      background: linear-gradient(90deg, #081126 0%, #0d1a33 50%, #081126 100%);
+      background: linear-gradient(90deg, #060A14 0%, #0B1220 50%, #060A14 100%);
       color: var(--light);
       font-family: 'Inter', sans-serif;
       cursor: none;
@@ -354,8 +354,8 @@ export default function Portfolio() {
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(40% 55% at 0% 50%, rgba(0,173,181,.08), transparent 75%),
-        radial-gradient(40% 55% at 100% 50%, rgba(0,173,181,.08), transparent 75%);
+        radial-gradient(40% 55% at 0% 50%, rgba(37,99,235,.08), transparent 75%),
+        radial-gradient(40% 55% at 100% 50%, rgba(37,99,235,.08), transparent 75%);
       animation: none;
     }
     body::after {
@@ -366,8 +366,8 @@ export default function Portfolio() {
       z-index: 0;
       opacity: .12;
       background-image:
-        linear-gradient(rgba(0,173,181,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,173,181,.08) 1px, transparent 1px);
+        linear-gradient(rgba(37,99,235,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,.08) 1px, transparent 1px);
       background-size: 44px 44px;
       mask-image: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.7));
     }
@@ -378,7 +378,7 @@ export default function Portfolio() {
       border-radius: 50%;
       position: fixed; pointer-events: none; z-index: 9999;
       transform: translate(-50%,-50%);
-      box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(0,173,181,.45);
+      box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(37,99,235,.45);
       transition: width .15s, height .15s;
     }
     .ball.h { width: 15px; height: 15px; }
@@ -386,7 +386,7 @@ export default function Portfolio() {
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 18px 52px; display: flex; justify-content: space-between; align-items: center;
-      background: rgba(34,40,49,0.68);
+      background: rgba(11,18,32,0.78);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
     }
@@ -395,20 +395,23 @@ export default function Portfolio() {
       align-items: center;
       justify-content: center;
       background: var(--gold);
-      color: #081126;
-      padding: 6px 11px;
+      color: #0B1220;
+      padding: 8px 14px;
       font-family: 'Inter', sans-serif;
       font-size: 18px;
       font-weight: 900;
       letter-spacing: .2px;
       line-height: 1;
-      box-shadow: 0 4px 16px rgba(0,173,181,.4);
+      box-shadow: 0 4px 16px rgba(37,99,235,.35);
       text-decoration: none;
       border: none;
+      border-radius: 6px;
     }
     .nl { display: flex; gap: 36px; }
-    .nl a { color: rgba(238,238,238,.78); font-size: 12px; text-decoration: none; letter-spacing: 2.8px; text-transform: uppercase; transition: color .2s; font-weight: 600; }
+    .nl a { color: rgba(241,245,249,.82); font-size: 13px; text-decoration: none; letter-spacing: 2.8px; text-transform: uppercase; transition: color .2s; font-weight: 600; }
     .nl a:hover { color: var(--gold); }
+    .nav-cv { background: var(--gold); color: #0F172A !important; padding: 8px 16px; border-radius: 5px; font-weight: 700; letter-spacing: 1.5px; transition: all .2s; }
+    .nav-cv:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,.3); }
 
     .hero {
       min-height: 100vh; display: flex; align-items: center;
@@ -436,8 +439,8 @@ export default function Portfolio() {
       top: 10%;
       width: 380px;
       height: 380px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,173,181,.06) 0%, rgba(0,173,181,0) 75%);
+      border-radius: 6px;
+      background: radial-gradient(circle, rgba(37,99,235,.06) 0%, rgba(37,99,235,0) 75%);
       filter: blur(20px);
       animation: floatOrb 7s ease-in-out infinite alternate;
       pointer-events: none;
@@ -456,11 +459,11 @@ export default function Portfolio() {
     .hero-photo-card {
       width: min(430px, 92%);
       max-width: 100%;
-      border: 1px solid rgba(0,173,181,.34);
-      background: linear-gradient(165deg, rgba(0,173,181,.12), rgba(34,40,49,.72));
+      border: 1px solid rgba(37,99,235,.34);
+      background: linear-gradient(165deg, rgba(37,99,235,.12), rgba(17,24,39,.72));
       padding: 12px;
       backdrop-filter: blur(8px);
-      box-shadow: 0 14px 46px rgba(0,0,0,.45), 0 0 32px rgba(0,173,181,.28);
+      box-shadow: 0 14px 46px rgba(0,0,0,.45), 0 0 32px rgba(37,99,235,.28);
       position: relative;
       overflow: hidden;
     }
@@ -468,7 +471,7 @@ export default function Portfolio() {
       content: "";
       position: absolute;
       inset: 0;
-      border: 1px solid rgba(0,173,181,.22);
+      border: 1px solid rgba(37,99,235,.22);
       pointer-events: none;
     }
     .hero-photo-card::after {
@@ -476,7 +479,7 @@ export default function Portfolio() {
       position: absolute;
       inset: auto 0 0 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(0,173,181,.7), transparent);
+      background: linear-gradient(90deg, transparent, rgba(37,99,235,.7), transparent);
       pointer-events: none;
     }
     .hero-photo-card > span::before {
@@ -484,8 +487,8 @@ export default function Portfolio() {
       position: absolute;
       inset: -14px;
       border-radius: 2px;
-      border: 1px solid rgba(0,173,181,.24);
-      box-shadow: 0 0 28px rgba(0,173,181,.35);
+      border: 1px solid rgba(37,99,235,.24);
+      box-shadow: 0 0 28px rgba(37,99,235,.35);
       pointer-events: none;
     }
     .hero-photo-card img {
@@ -494,7 +497,7 @@ export default function Portfolio() {
       max-height: 560px;
       object-fit: cover;
       display: block;
-      border: 1px solid rgba(0,173,181,.2);
+      border: 1px solid rgba(37,99,235,.2);
     }
     .hero-photo-fallback {
       width: 100%;
@@ -505,8 +508,8 @@ export default function Portfolio() {
       text-align: center;
       padding: 20px;
       color: rgba(238,238,238,.72);
-      border: 1px dashed rgba(0,173,181,.35);
-      background: rgba(34,40,49,.5);
+      border: 1px dashed rgba(37,99,235,.35);
+      background: rgba(17,24,39,.5);
       font-size: 12px;
       line-height: 1.7;
     }
@@ -520,22 +523,22 @@ export default function Portfolio() {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      border: 1px solid rgba(0,173,181,.5);
+      border: 1px solid rgba(37,99,235,.5);
       background: transparent;
       padding: 0;
       cursor: none;
     }
-    .hero-slide-dot.active { background: var(--gold); box-shadow: 0 0 10px rgba(0,173,181,.45); }
+    .hero-slide-dot.active { background: var(--gold); box-shadow: 0 0 10px rgba(37,99,235,.45); }
 
     .hbadge {
       display: inline-flex; align-items: center; gap: 10px;
-      border: 1px solid rgba(0,173,181,.45);
-      background: rgba(0,173,181,.14);
+      border: 1px solid rgba(37,99,235,.45);
+      background: rgba(37,99,235,.14);
       padding: 7px 18px; margin-bottom: 28px;
       font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold);
       max-width: 100%;
     }
-    .hbdot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: bk 2s infinite; }
+      border-radius: 50%;
     @keyframes bk { 0%,100%{opacity:1;} 50%{opacity:.2;} }
 
     h1 {
@@ -545,13 +548,13 @@ export default function Portfolio() {
       text-transform: none;
       margin-bottom: 14px;
       color: #fff;
-      text-shadow: 0 2px 40px rgba(34,40,49,.3);
+      text-shadow: 0 2px 40px rgba(17,24,39,.3);
       white-space: nowrap;
       max-width: 100%;
     }
     .aw {
       color: var(--gold);
-      text-shadow: 0 0 30px rgba(0,173,181,.6), 0 2px 40px rgba(34,40,49,.3);
+      text-shadow: 0 0 30px rgba(37,99,235,.6), 0 2px 40px rgba(17,24,39,.3);
     }
     .hrole {
       font-family: 'Satoshi', sans-serif; font-size: clamp(18px,3vw,30px);
@@ -567,9 +570,9 @@ export default function Portfolio() {
       letter-spacing: 1.5px; text-transform: uppercase; border: none; cursor: none;
       display: inline-flex; align-items: center; gap: 9px; transition: all .2s;
       text-decoration: none;
-      box-shadow: 0 4px 20px rgba(0,173,181,.4);
+      box-shadow: 0 4px 20px rgba(37,99,235,.4);
     }
-    .bp:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,173,181,.55); }
+    .bp:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,99,235,.55); }
     .bo {
       background: rgba(255,255,255,.08); color: #fff;
       padding: 13px 28px; border: 1px solid rgba(255,255,255,.25); font-family: 'Inter', sans-serif;
@@ -579,7 +582,7 @@ export default function Portfolio() {
     .bo:hover { background: rgba(255,255,255,.15); border-color: var(--gold); color: var(--gold); }
 
     .stat-row { display: flex; gap: 40px; }
-    .stat { border-left: 2px solid rgba(0,173,181,.45); padding-left: 18px; }
+    .stat { border-left: 2px solid rgba(37,99,235,.45); padding-left: 18px; }
     .sn { font-family: 'Satoshi', sans-serif; font-size: 40px; font-weight: 900; color: #fff; line-height: 1; }
     .sl { font-size: 9px; color: rgba(238,238,238,.58); letter-spacing: 3px; text-transform: uppercase; margin-top: 3px; }
 
@@ -587,7 +590,7 @@ export default function Portfolio() {
       position: absolute; right: 52px; top: 50%; transform: translateY(-50%);
       display: flex; flex-direction: column; gap: 32px; z-index: 1;
     }
-    .hstat { text-align: right; padding-right: 18px; border-right: 2px solid rgba(0,173,181,.4); }
+    .hstat { text-align: right; padding-right: 18px; border-right: 2px solid rgba(37,99,235,.4); }
 
     section { padding: 68px 52px; position: relative; z-index: 1; }
     .sec-divider { display: none; }
@@ -598,8 +601,8 @@ export default function Portfolio() {
     .stitle { font-family: 'Satoshi', sans-serif; font-size: clamp(26px,4vw,44px); font-weight: 900; letter-spacing: -1.5px; color: #fff; margin-bottom: 18px; }
 
     .gcard {
-      background: rgba(34,40,49,.45);
-      border: 1px solid rgba(0,173,181,.22);
+      background: rgba(17,24,39,.45);
+      border: 1px solid rgba(37,99,235,.22);
       backdrop-filter: blur(10px);
       position: relative;
       overflow: hidden;
@@ -611,22 +614,22 @@ export default function Portfolio() {
       inset: -40% auto auto -30%;
       width: 65%;
       height: 180%;
-      background: linear-gradient(120deg, transparent, rgba(0,173,181,.22), transparent);
+      background: linear-gradient(120deg, transparent, rgba(37,99,235,.22), transparent);
       transform: translateX(-130%) rotate(12deg);
       transition: transform .55s ease;
       pointer-events: none;
     }
-    .gcard:hover { background: rgba(34,40,49,.62); border-color: rgba(0,173,181,.35); }
+    .gcard:hover { background: rgba(17,24,39,.62); border-color: rgba(37,99,235,.35); }
     .gcard:hover::after { transform: translateX(260%) rotate(12deg); }
 
     .vtabs { display: flex; gap: 1px; margin-bottom: 32px; }
     .vt {
       padding: 8px 20px; font-family: 'Inter', sans-serif; font-size: 10px;
       letter-spacing: 2px; text-transform: uppercase;
-      background: rgba(34,40,49,.45); border: 1px solid rgba(0,173,181,.22);
+      background: rgba(17,24,39,.45); border: 1px solid rgba(37,99,235,.22);
       color: rgba(238,238,238,.56); cursor: none; transition: all .2s;
     }
-    .vt.on { background: rgba(0,173,181,.18); border-color: rgba(0,173,181,.5); color: var(--gold); }
+    .vt.on { background: rgba(37,99,235,.18); border-color: rgba(37,99,235,.5); color: var(--gold); }
 
     .sg { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; }
     .sc { padding: 26px 22px; position: relative; overflow: hidden; transition: all .3s; }
@@ -640,7 +643,7 @@ export default function Portfolio() {
       font-size: 10.5px;
       font-weight: 600;
       padding: 4px 9px;
-      border: 1px solid rgba(0,173,181,.55);
+      border: 1px solid rgba(37,99,235,.55);
       color: var(--light);
       background: rgba(57,62,70,.9);
       letter-spacing: .35px;
@@ -649,15 +652,15 @@ export default function Portfolio() {
     .sbars { display: flex; flex-direction: column; gap: 16px; }
     .brrow { display: flex; align-items: center; gap: 22px; margin-bottom: 6px; }
     .brl { font-family: 'Satoshi', sans-serif; font-size: 13px; font-weight: 700; width: 190px; flex-shrink: 0; color: #fff; }
-    .brt { flex: 1; height: 5px; background: rgba(0,173,181,.22); overflow: hidden; }
+    .brt { flex: 1; height: 5px; background: rgba(37,99,235,.22); overflow: hidden; }
     .brf { height: 100%; background: linear-gradient(90deg, var(--gold), rgba(57,62,70,.45)); animation: gr 1.1s cubic-bezier(.22,1,.36,1) forwards; transform-origin: left; }
     @keyframes gr { from{transform:scaleX(0)} to{transform:scaleX(1)} }
     .brtgs { display: flex; gap: 8px; flex-wrap: wrap; padding-left: 212px; margin-bottom: 10px; }
     .brtg { font-size: 9px; color: rgba(238,238,238,.56); letter-spacing: 1px; text-transform: uppercase; }
 
     .smin { display: grid; grid-template-columns: 1fr 1fr; }
-    .smi { padding: 20px 22px; border-bottom: 1px solid rgba(0,173,181,.16); display: flex; gap: 14px; align-items: flex-start; transition: background .2s; }
-    .smi:hover { background: rgba(0,173,181,.1); }
+    .smi { padding: 20px 22px; border-bottom: 1px solid rgba(37,99,235,.16); display: flex; gap: 14px; align-items: flex-start; transition: background .2s; }
+    .smi:hover { background: rgba(37,99,235,.1); }
     .smn { font-family: 'Satoshi', sans-serif; font-size: 11px; color: rgba(238,238,238,.46); margin-top: 2px; width: 22px; flex-shrink: 0; }
     .smcat { font-family: 'Satoshi', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 7px; }
     .smtg { font-size: 10px; color: rgba(238,238,238,.58); }
@@ -667,15 +670,15 @@ export default function Portfolio() {
     .pc { padding: 38px 34px; position: relative; overflow: hidden; transition: all .3s; }
     .pc:last-child { grid-column: 1/-1; }
     .pc:hover { transform: translateY(-3px); }
-    .pnum { font-family: 'Satoshi', sans-serif; font-size: 54px; font-weight: 900; color: rgba(0,173,181,.16); position: absolute; top: 18px; right: 24px; line-height: 1; }
-    .pbadge { display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(0,173,181,.4); padding: 3px 10px; margin-bottom: 16px; background: rgba(0,173,181,.14); }
+    .pnum { font-family: 'Satoshi', sans-serif; font-size: 54px; font-weight: 900; color: rgba(37,99,235,.16); position: absolute; top: 18px; right: 24px; line-height: 1; }
+    .pbadge { display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(37,99,235,.4); padding: 3px 10px; margin-bottom: 16px; background: rgba(37,99,235,.14); }
     .ptitle { font-family: 'Satoshi', sans-serif; font-size: 21px; font-weight: 900; margin-bottom: 14px; letter-spacing: -.5px; color: #fff; }
     .pdesc { font-size: 12.5px; color: rgba(238,238,238,.68); line-height: 1.85; margin-bottom: 22px; font-weight: 300; }
     .ptechs { display: flex; flex-wrap: wrap; gap: 5px; }
     .ptag {
       font-size: 9.5px;
       padding: 3px 9px;
-      border: 1px solid rgba(0,173,181,.4);
+      border: 1px solid rgba(37,99,235,.4);
       color: rgba(238,238,238,.95);
       background: rgba(57,62,70,.82);
       letter-spacing: 1px;
@@ -687,11 +690,11 @@ export default function Portfolio() {
     .eyr { font-size: 12px; letter-spacing: 3px; color: var(--gold); margin-bottom: 12px; text-transform: uppercase; }
     .edeg { font-family: 'Satoshi', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 8px; letter-spacing: -.5px; line-height: 1.2; color: #fff; }
     .eschool { font-size: 12px; color: rgba(238,238,238,.6); margin-bottom: 18px; }
-    .ecgpa { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gold); border: 1px solid rgba(0,173,181,.35); padding: 5px 12px; background: rgba(0,173,181,.14); }
+    .ecgpa { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gold); border: 1px solid rgba(37,99,235,.35); padding: 5px 12px; background: rgba(37,99,235,.14); }
     .certs { display: flex; flex-direction: column; }
-    .crow { display: flex; align-items: center; gap: 14px; padding: 16px 22px; border-bottom: 1px solid rgba(0,173,181,.16); transition: all .2s; border-left: 2px solid transparent; }
-    .crow:hover { padding-left: 30px; border-left-color: var(--gold); background: rgba(0,173,181,.1); }
-    .cdot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .crow { display: flex; align-items: center; gap: 14px; padding: 16px 22px; border-bottom: 1px solid rgba(37,99,235,.16); transition: all .2s; border-left: 2px solid transparent; }
+    .crow:hover { padding-left: 30px; border-left-color: var(--gold); background: rgba(37,99,235,.1); }
+      border-radius: 50%;
     .cn { font-size: 12.5px; color: rgba(255,240,230,.85); flex: 1; }
     .cd { font-size: 10px; color: rgba(238,238,238,.5); text-align: right; white-space: nowrap; }
 
@@ -712,7 +715,7 @@ export default function Portfolio() {
 
     .journey-wrap {
       position: relative;
-      border: 1px solid rgba(0,173,181,.22);
+      border: 1px solid rgba(37,99,235,.22);
       background: linear-gradient(180deg, rgba(16,24,39,.58), rgba(10,15,26,.72));
       backdrop-filter: blur(10px);
       padding: 22px 18px 18px;
@@ -722,7 +725,7 @@ export default function Portfolio() {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(0,173,181,.08), transparent 68%);
+      background: radial-gradient(circle at center, rgba(37,99,235,.08), transparent 68%);
       pointer-events: none;
     }
     .roadmap-h { position: relative; z-index: 2; }
@@ -732,20 +735,20 @@ export default function Portfolio() {
       -webkit-overflow-scrolling: touch;
       padding-bottom: 8px;
       scrollbar-width: thin;
-      scrollbar-color: rgba(0,173,181,.55) rgba(0,0,0,.2);
+      scrollbar-color: rgba(37,99,235,.55) rgba(0,0,0,.2);
     }
     .rm-scroll::-webkit-scrollbar { height: 6px; }
     .rm-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,.2); }
     .rm-scroll::-webkit-scrollbar-thumb {
-      background: rgba(0,173,181,.55);
+      background: rgba(37,99,235,.55);
       border-radius: 20px;
     }
     .rm-track { min-width: 680px; }
     .rm-line {
       height: 2px;
       margin: 18px 22px 0;
-      background: linear-gradient(90deg, rgba(57,62,70,.2), rgba(0,173,181,.75), rgba(57,62,70,.2));
-      box-shadow: 0 0 14px rgba(0,173,181,.35);
+      background: linear-gradient(90deg, rgba(57,62,70,.2), rgba(37,99,235,.75), rgba(57,62,70,.2));
+      box-shadow: 0 0 14px rgba(37,99,235,.35);
     }
     .rm-points {
       margin-top: -18px;
@@ -759,15 +762,15 @@ export default function Portfolio() {
       height: 38px;
       border-radius: 50%;
       margin: 0 auto 10px;
-      border: 2px solid rgba(0,173,181,.35);
-      background: rgba(34,40,49,.95);
+      border: 2px solid rgba(37,99,235,.35);
+      background: rgba(17,24,39,.95);
       color: var(--light);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 16px;
       transition: all .25s;
-      box-shadow: 0 0 0 rgba(0,173,181,0);
+      box-shadow: 0 0 0 rgba(37,99,235,0);
       cursor: none;
     }
     .rm-dot svg {
@@ -779,7 +782,7 @@ export default function Portfolio() {
     .rm-dot.active {
       border-color: var(--gold);
       transform: translateY(-2px) scale(1.08);
-      box-shadow: 0 0 20px rgba(0,173,181,.5);
+      box-shadow: 0 0 20px rgba(37,99,235,.5);
     }
     .rm-point-year {
       font-size: 12px;
@@ -794,8 +797,8 @@ export default function Portfolio() {
     }
     .rm-popup {
       margin-top: 22px;
-      background: rgba(34,40,49,.66);
-      border: 1px solid rgba(0,173,181,.25);
+      background: rgba(17,24,39,.66);
+      border: 1px solid rgba(37,99,235,.25);
       padding: 18px 18px 16px;
       position: relative;
     }
@@ -867,8 +870,8 @@ export default function Portfolio() {
       font-size: 11px;
       color: var(--gold);
       padding: 9px 12px;
-      border: 1px solid rgba(0,173,181,.25);
-      background: rgba(0,173,181,.08);
+      border: 1px solid rgba(37,99,235,.25);
+      background: rgba(37,99,235,.08);
       margin-bottom: 10px;
       line-height: 1.55;
     }
@@ -880,14 +883,14 @@ export default function Portfolio() {
     .rm-popup-tag {
       font-size: 9px;
       padding: 3px 9px;
-      border: 1px solid rgba(0,173,181,.28);
+      border: 1px solid rgba(37,99,235,.28);
       color: rgba(238,238,238,.8);
-      background: rgba(0,173,181,.1);
+      background: rgba(37,99,235,.1);
       letter-spacing: .5px;
     }
 
     .ct-head { display: flex; align-items: center; gap: 20px; margin-bottom: 26px; }
-    .ct-line { flex: 1; height: 1px; background: rgba(0,173,181,.28); }
+    .ct-line { flex: 1; height: 1px; background: rgba(37,99,235,.28); }
     .ct-tag { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
     .ct-center { text-align: center; max-width: 520px; margin: 0 auto; }
     .ct-title { font-family: 'Satoshi', sans-serif; font-size: clamp(28px,5vw,50px); font-weight: 900; letter-spacing: -2px; margin-bottom: 10px; color: #fff; }
@@ -896,7 +899,7 @@ export default function Portfolio() {
     .cl { display: flex; align-items: center; gap: 9px; padding: 13px 22px; color: rgba(255,240,230,.85); text-decoration: none; font-size: 12px; transition: all .2s; cursor: none; }
     .cl:hover { color: var(--gold); transform: translateY(-2px); }
 
-    footer { padding: 24px 52px; border-top: 1px solid rgba(0,173,181,.24); display: flex; justify-content: space-between; font-size: 10px; color: rgba(238,238,238,.5); letter-spacing: 1px; position: relative; z-index:1; }
+    footer { padding: 24px 52px; border-top: 1px solid rgba(37,99,235,.24); display: flex; justify-content: space-between; font-size: 10px; color: rgba(238,238,238,.5); letter-spacing: 1px; position: relative; z-index:1; }
 
     .fu { opacity: 0; transform: translateY(22px); transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
     .fv { opacity: 1; transform: none; }
@@ -974,6 +977,15 @@ export default function Portfolio() {
                 {l}
               </a>
             ))}
+            <a
+              href="https://drive.google.com/file/d/PLACEHOLDER/view"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-cv"
+              {...H}
+            >
+              CV
+            </a>
           </div>
         </nav>
 
@@ -1235,9 +1247,7 @@ export default function Portfolio() {
             </p>
             <div className="clinks">
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=zameer.trichy@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:zameer.trichy@gmail.com"
                 className="cl gcard"
                 {...H}
               >
@@ -1273,3 +1283,4 @@ export default function Portfolio() {
     </>
   );
 }
+
