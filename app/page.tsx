@@ -152,6 +152,12 @@ const projects = [
     title: "AI Resume Screener",
     desc: "Built an NLP-based screening system using TF-IDF and cosine similarity to identify skill gaps, with XGBoost classification and SHAP-based explainability.",
     tech: ["Python", "TF-IDF", "XGBoost", "SHAP", "NLP"],
+    brief: [
+      "Designed a resume-job matching flow using TF-IDF vectors and cosine similarity scoring.",
+      "Implemented a classification layer with XGBoost to rank candidate relevance.",
+      "Added SHAP-based interpretation to explain skill-gap and ranking decisions.",
+      "Structured the pipeline for faster recruiter screening and shortlisting support.",
+    ],
   },
   {
     num: "02",
@@ -159,6 +165,12 @@ const projects = [
     title: "BigMart Sales Prediction",
     desc: "Developed an end-to-end regression pipeline on historical BigMart data, covering EDA, preprocessing, model training, and evaluation for inventory planning.",
     tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "EDA"],
+    brief: [
+      "Performed data cleaning, feature engineering, and outlier handling on retail sales data.",
+      "Built and validated regression models to forecast item-level sales performance.",
+      "Compared model metrics and selected a stable configuration for planning scenarios.",
+      "Delivered insights to support inventory and demand planning decisions.",
+    ],
   },
   {
     num: "03",
@@ -166,6 +178,12 @@ const projects = [
     title: "Chest X-Ray Pneumonia Detection",
     desc: "Implemented a DenseNet121-based binary classifier for chest X-ray analysis, integrated Grad-CAM for explainability, and deployed the solution with Streamlit.",
     tech: ["DenseNet121", "Grad-CAM", "Streamlit", "Deep Learning"],
+    brief: [
+      "Trained a DenseNet121-based model for binary pneumonia classification on X-ray images.",
+      "Applied augmentation and transfer learning to improve generalization.",
+      "Integrated Grad-CAM visual explanations to highlight model attention regions.",
+      "Packaged the inference workflow into a Streamlit app for practical usage.",
+    ],
   },
   {
     num: "04",
@@ -173,6 +191,12 @@ const projects = [
     title: "FRMS - Fraud Risk Management System",
     desc: "Designed and implemented an FRMS pipeline during internship to detect suspicious transaction patterns with scalable, analytics-ready data architecture.",
     tech: ["Python", "Docker", "PostgreSQL", "MySQL", "ClickHouse", "Fraud Detection"],
+    brief: [
+      "Built ingestion and processing components for suspicious transaction detection workflows.",
+      "Designed a data layer using PostgreSQL, MySQL, and ClickHouse for analytics workloads.",
+      "Containerized services with Docker to support consistent deployment and scaling.",
+      "Focused on low-latency querying and traceable risk-rule execution.",
+    ],
   },
 ];
 
@@ -259,6 +283,8 @@ const roadmap = [
 
 export default function Portfolio() {
   const [hov, setHov] = useState(false);
+  const [activeProject, setActiveProject] = useState(0);
+  const [isProjectBriefOpen, setIsProjectBriefOpen] = useState(true);
   const [activeRoadmap, setActiveRoadmap] = useState(0);
   const ballRef = useRef<HTMLDivElement | null>(null);
   const mouseRef = useRef({ x: -100, y: -100 });
@@ -268,6 +294,15 @@ export default function Portfolio() {
   const [heroSlide, setHeroSlide] = useState(0);
   const availableHeroSlides = heroSlides.filter((s) => !heroSlideErrors[s]);
   const activeHeroSlide = availableHeroSlides.length > 0 ? heroSlide % availableHeroSlides.length : 0;
+
+  const handleProjectSelect = (index: number) => {
+    if (index === activeProject) {
+      setIsProjectBriefOpen((prev) => !prev);
+      return;
+    }
+    setActiveProject(index);
+    setIsProjectBriefOpen(true);
+  };
 
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
@@ -667,6 +702,15 @@ export default function Portfolio() {
     .pc { padding: 38px 34px; position: relative; overflow: hidden; transition: all .3s; }
     .pc:last-child { grid-column: 1/-1; }
     .pc:hover { transform: translateY(-3px); }
+    .pc.active {
+      border-color: rgba(0,173,181,.65);
+      box-shadow: inset 0 0 0 1px rgba(0,173,181,.25), 0 8px 26px rgba(0,0,0,.22);
+    }
+    .pcard-btn {
+      width: 100%; display: block; text-align: left;
+      background: transparent; border: 0; color: inherit;
+      padding: 0; font: inherit; cursor: none;
+    }
     .pnum { font-family: 'Satoshi', sans-serif; font-size: 54px; font-weight: 900; color: rgba(0,173,181,.16); position: absolute; top: 18px; right: 24px; line-height: 1; }
     .pbadge { display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(0,173,181,.4); padding: 3px 10px; margin-bottom: 16px; background: rgba(0,173,181,.14); }
     .ptitle { font-family: 'Satoshi', sans-serif; font-size: 21px; font-weight: 900; margin-bottom: 14px; letter-spacing: -.5px; color: #fff; }
@@ -681,6 +725,58 @@ export default function Portfolio() {
       letter-spacing: 1px;
       text-transform: uppercase;
     }
+
+    .project-brief {
+      margin-top: 12px;
+      border: 1px solid rgba(0,173,181,.32);
+      background: linear-gradient(145deg, rgba(16,26,44,.72), rgba(10,16,30,.82));
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      max-height: 540px;
+      opacity: 1;
+      transition: max-height .35s ease, opacity .25s ease, margin-top .25s ease, padding .25s ease, border-color .25s ease;
+    }
+    .project-brief.closed {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-color: transparent;
+      pointer-events: none;
+    }
+    .project-brief-inner {
+      overflow: hidden;
+    }
+    .project-brief::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--gold), transparent 75%);
+    }
+    .project-brief-top { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin-bottom: 10px; padding-left: 8px; }
+    .project-brief-label { font-size: 10px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--gold); }
+    .project-brief-title { font-family: 'Satoshi', sans-serif; font-size: 21px; font-weight: 800; letter-spacing: -.4px; color: #fff; }
+    .project-brief-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 18px;
+      padding-left: 8px;
+    }
+    .project-brief-list li {
+      font-size: 12px;
+      color: rgba(238,238,238,.8);
+      line-height: 1.65;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .project-brief-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); margin-top: 7px; flex-shrink: 0; }
 
     .eg { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
     .ec { padding: 34px; transition: all .3s; }
@@ -941,6 +1037,7 @@ export default function Portfolio() {
       section { padding: 44px 16px; }
       .sg, .pg, .eg, .smin { grid-template-columns: 1fr; }
       .pc:last-child { grid-column: auto; }
+      .project-brief-list { grid-template-columns: 1fr; }
       .brtgs { padding-left: 0; }
       .edu-head { grid-template-columns: 1fr; gap: 10px; }
       .rm-track { min-width: 520px; }
@@ -1096,20 +1193,38 @@ export default function Portfolio() {
           <div className="stitle fu">Project Portfolio</div>
           <div className="pg">
             {projects.map((p, i) => (
-              <div key={i} className="pc gcard fu" {...H}>
-                <div className="pnum">{p.num}</div>
-                <div className="pbadge">{p.badge}</div>
-                <div className="ptitle">{p.title}</div>
-                <p className="pdesc">{p.desc}</p>
-                <div className="ptechs">
-                  {p.tech.map((t) => (
-                    <span key={t} className="ptag">
-                      {t}
-                    </span>
-                  ))}
-                </div>
+              <div key={i} className={`pc gcard fu ${activeProject === i ? "active" : ""}`}>
+                <button type="button" className="pcard-btn" onClick={() => handleProjectSelect(i)} aria-expanded={activeProject === i && isProjectBriefOpen} {...H}>
+                  <div className="pnum">{p.num}</div>
+                  <div className="pbadge">{p.badge}</div>
+                  <div className="ptitle">{p.title}</div>
+                  <p className="pdesc">{p.desc}</p>
+                  <div className="ptechs">
+                    {p.tech.map((t) => (
+                      <span key={t} className="ptag">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </button>
               </div>
             ))}
+          </div>
+          <div className={`project-brief fu ${isProjectBriefOpen ? "open" : "closed"}`}>
+            <div className="project-brief-inner">
+              <div className="project-brief-top">
+                <span className="project-brief-label">Project Brief</span>
+                <span className="project-brief-title">{projects[activeProject].title}</span>
+              </div>
+              <ul className="project-brief-list">
+                {projects[activeProject].brief.map((item) => (
+                  <li key={item}>
+                    <span className="project-brief-dot" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -1273,3 +1388,6 @@ export default function Portfolio() {
     </>
   );
 }
+
+
+
