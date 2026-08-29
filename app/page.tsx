@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
-import { AppWindow, ArrowUpRight, BrainCircuit, ChartColumnIncreasing, Code2, Database, Flame, Microscope, Rocket, Target, Wrench, X } from "lucide-react";
+import { ArrowUpRight, BrainCircuit, Code2, Container, Database, FileText, Flame, LayoutDashboard, Rocket, Server, Target, X } from "lucide-react";
 
 const LinkedInIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -20,6 +20,12 @@ const GitHubIcon = () => (
 const MailIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
     <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z" />
   </svg>
 );
 
@@ -137,21 +143,182 @@ function Glitter() {
 }
 
 const skills = [
-  { icon: Code2, cat: "Languages", tags: ["Python", "SQL", "HTML"] },
-  { icon: ChartColumnIncreasing, cat: "Data & Visualization", tags: ["Power BI", "Pandas", "NumPy", "EDA"] },
-  { icon: BrainCircuit, cat: "ML Libraries", tags: ["Scikit-learn", "TF-IDF", "XGBoost", "SHAP"] },
-  { icon: Microscope, cat: "Deep Learning", tags: ["DenseNet121", "Grad-CAM", "Augmentation"] },
-  { icon: Database, cat: "Databases & Infra", tags: ["PostgreSQL", "MySQL", "ClickHouse", "Docker"] },
-  { icon: Wrench, cat: "Tools & Platforms", tags: ["Jupyter", "Google Colab", "VS Code", "GitHub"] },
-  { icon: AppWindow, cat: "Frameworks", tags: ["Flask", "Streamlit", "FastAPI"] },
+  { icon: Code2, cat: "Languages", tags: ["Python", "SQL", "JavaScript"] },
+  { icon: Server, cat: "Backend", tags: ["FastAPI", "SQLAlchemy", "Pydantic", "Flask", "REST APIs", "Swagger", "Jinja2"] },
+  { icon: LayoutDashboard, cat: "Frontend", tags: ["React", "API Integration", "Responsive Design"] },
+  { icon: Database, cat: "Databases", tags: ["PostgreSQL", "MySQL", "Redis", "ClickHouse"] },
+  { icon: BrainCircuit, cat: "AI & ML", tags: ["PyTorch", "Scikit-learn", "XGBoost", "NLP", "PaddleOCR", "OpenCV", "SHAP"] },
+  { icon: Container, cat: "DevOps", tags: ["Docker", "Git", "GitHub", "Linux"] },
 ];
 
 const projects = [
   {
     num: "01",
+    badge: "ERP - Full Stack",
+    title: "Enterprise ERP Platform",
+    desc: "Architected the backend of a production multi-module ERP system handling HR, attendance, CTMS/staff augmentation, billing, invoicing, email, CRM, permissions, and notifications.",
+    problem:
+      "Growing service organizations need one system of record spanning HR, attendance, billing, and client operations, without fragmenting data across disconnected tools.",
+    architecture:
+      "Designed a modular REST API backend covering HR, CTMS attendance/billing workflows, CRM, and notifications, with Swagger-documented contracts consumed by a React frontend across employee, client, and issue-tracking modules.",
+    tech: ["Python", "FastAPI", "PostgreSQL", "React", "Jinja2", "Swagger"],
+    keyFeatures: [
+      "CTMS attendance and billing workflow with multi-day tracking, draft/publish states, and approval flows",
+      "Backend-driven invoice generation for staff augmentation billing",
+      "Transactional email delivery with template versioning and safe HTML rendering via Jinja2",
+      "Stable REST API contracts and Swagger docs supporting React frontend integration",
+    ],
+    results: [
+      "Delivered a production multi-module ERP spanning HR, CTMS, billing, CRM, and notifications",
+      "Enabled reliable client onboarding and employee management through documented, stable API contracts",
+    ],
+    challenges: [
+      {
+        challenge: "Complex approval and state transitions in attendance/billing",
+        solution: "Modeled explicit draft/publish states with backend-enforced approval flows",
+      },
+      {
+        challenge: "Production email delivery reliability",
+        solution: "Integrated Hostinger Mail API with template versioning and hands-on production debugging",
+      },
+    ],
+    github: "https://github.com/Zameer-inno",
+    demo: "",
+  },
+  {
+    num: "02",
+    badge: "E-Commerce - Full Stack",
+    title: "E-Commerce Marketplace Platform",
+    desc: "Engineered the backend of a 3-portal marketplace (Merchant, Admin, Customer) covering catalog, pricing, cart, orders, returns, and AI-powered product quality review via Ollama.",
+    problem:
+      "Multi-vendor marketplaces need strict product approval and quality controls across merchants while keeping admin operations and customer-facing commerce fast and reliable.",
+    architecture:
+      "Built REST services for catalog management, product approval workflows, a pricing engine, and order/return flows, integrated with an Ollama-based AI quality review step, and shipped the full Admin Portal frontend in React.",
+    tech: ["Python", "FastAPI", "React", "PostgreSQL", "Ollama"],
+    keyFeatures: [
+      "Product catalog, approval workflow, and pricing engine",
+      "AI-powered product quality review using Ollama",
+      "Complete Admin Portal frontend: approvals, AI quality reports, merchant management, order tracking",
+      "Cart, orders, and returns handling across 3 portals",
+    ],
+    results: [
+      "Shipped backend and Admin frontend for a full 3-portal marketplace",
+      "Automated product quality screening, reducing manual merchant review effort",
+    ],
+    challenges: [
+      {
+        challenge: "Coordinating approval state across merchant, admin, and customer views",
+        solution: "Centralized product/order state in the backend with consistent status contracts across portals",
+      },
+      {
+        challenge: "Surfacing AI quality signals usefully to admins",
+        solution: "Built dedicated AI quality report views into the Admin Portal for fast merchant decisions",
+      },
+    ],
+    github: "https://github.com/Zameer-inno",
+    demo: "",
+  },
+  {
+    num: "03",
+    badge: "FinTech - Frontend",
+    title: "Banking Transaction Reconciliation Platform",
+    desc: "Developed the complete frontend for a platform comparing ATM and ACH transaction files to detect and resolve mismatches, with real-time filtering and review dashboards.",
+    problem:
+      "Banking operations teams need to quickly reconcile transaction files across sources and surface mismatches for review without manual spreadsheet comparison.",
+    architecture:
+      "Built React-based reconciliation dashboards with real-time filtering and data views that track mismatched transactions across multiple file types (ATM, ACH).",
+    tech: ["React", "REST APIs", "Responsive Design"],
+    keyFeatures: [
+      "Reconciliation dashboards comparing ATM and ACH transaction files",
+      "Real-time filtering and review of mismatched transactions",
+      "Tracking views across multiple file types and states",
+    ],
+    results: [
+      "Delivered a complete frontend enabling faster, structured reconciliation review",
+      "Reduced manual effort in identifying and tracking mismatched transactions",
+    ],
+    challenges: [
+      {
+        challenge: "Presenting large, multi-source transaction datasets clearly",
+        solution: "Designed dashboard views with real-time filtering to isolate mismatches quickly",
+      },
+      {
+        challenge: "Supporting multiple file-type formats in one review flow",
+        solution: "Built a unified data-view layer abstracting format differences from the review UI",
+      },
+    ],
+    github: "https://github.com/Zameer-inno",
+    demo: "",
+  },
+  {
+    num: "04",
+    badge: "ML Engineering - OCR",
+    title: "Multilingual Identity Document OCR System",
+    desc: "Fine-tuned a PaddleOCR recognition model on GPU for Pashto and Dari text extraction from identity documents, using a pretrained Arabic model as the base.",
+    problem:
+      "Identity documents in Pashto and Dari need reliable OCR extraction, but pretrained models and labeled data for these scripts are scarce.",
+    architecture:
+      "Fine-tuned PaddleOCR on GPU starting from a pretrained Arabic recognition model, backed by a synthetic data augmentation pipeline using RTL text rendering, motion blur, shadow, compression, and perspective transforms.",
+    tech: ["PaddleOCR", "PyTorch", "OpenCV", "GPU Training"],
+    keyFeatures: [
+      "GPU fine-tuning of PaddleOCR for Pashto and Dari scripts",
+      "Transfer learning from a pretrained Arabic recognition model",
+      "Synthetic data augmentation: RTL rendering, motion blur, shadow, compression, perspective transforms",
+    ],
+    results: [
+      "Improved model robustness on real-world, low-quality document images",
+      "Extended OCR coverage to low-resource RTL scripts with limited labeled data",
+    ],
+    challenges: [
+      {
+        challenge: "Scarce labeled data for Pashto/Dari scripts",
+        solution: "Built a synthetic augmentation pipeline to simulate real-world document conditions",
+      },
+      {
+        challenge: "RTL text rendering and layout handling",
+        solution: "Engineered RTL-aware synthetic rendering to match production document layouts",
+      },
+    ],
+    github: "https://github.com/Zameer-inno",
+    demo: "",
+  },
+  {
+    num: "05",
+    badge: "Fraud Detection - Backend",
+    title: "Fraud Risk Monitoring Platform",
+    desc: "Built a real-time fraud risk monitoring system with automated risk scoring, Redis-backed processing, and PostgreSQL for high-volume transaction storage.",
+    problem:
+      "Fraud monitoring requires near real-time detection and scalable storage capable of handling high-volume transaction streams under production traffic.",
+    architecture:
+      "Designed automated risk-scoring logic with Redis-backed processing for speed and PostgreSQL for durable high-volume storage, deployed as scalable microservices via Docker with structured logging and rate limiting.",
+    tech: ["Python", "Redis", "PostgreSQL", "Docker"],
+    keyFeatures: [
+      "Automated real-time risk scoring pipeline",
+      "Redis-backed processing for sub-second response times",
+      "Scalable Docker microservices with structured logging and rate limiting",
+    ],
+    results: [
+      "Achieved sub-second response times under production traffic",
+      "Scaled to high-volume transaction storage and analysis via PostgreSQL",
+    ],
+    challenges: [
+      {
+        challenge: "Meeting sub-second scoring latency at volume",
+        solution: "Used Redis-backed processing to keep hot-path risk scoring fast",
+      },
+      {
+        challenge: "Protecting services under high production traffic",
+        solution: "Added structured logging and rate limiting across containerized microservices",
+      },
+    ],
+    github: "https://github.com/Zameer-inno",
+    demo: "",
+  },
+  {
+    num: "06",
     badge: "NLP - ML",
     title: "AI Resume Screener",
-    desc: "Built an NLP-based screening system using TF-IDF and cosine similarity to identify skill gaps, with XGBoost classification and SHAP-based explainability.",
+    desc: "Built an NLP-based screening system using TF-IDF and cosine similarity to match resumes against job descriptions, with XGBoost classification and SHAP-based explainability.",
     problem:
       "Recruiters spend significant time manually shortlisting resumes and often miss context between candidate profiles and role expectations.",
     architecture:
@@ -177,106 +344,41 @@ const projects = [
         solution: "Integrated SHAP to provide transparent feature-level explanations",
       },
     ],
-    github: "https://github.com/Zameer-7",
+    github: "https://github.com/Zameer-inno",
     demo: "",
   },
   {
-    num: "02",
-    badge: "Regression - EDA",
-    title: "BigMart Sales Prediction",
-    desc: "Developed an end-to-end regression pipeline on historical BigMart data, covering EDA, preprocessing, model training, and evaluation for inventory planning.",
-    problem:
-      "Retail demand planning requires reliable product-level sales forecasts to reduce overstocking and stockouts.",
-    architecture:
-      "Built a structured regression workflow with EDA, feature engineering, preprocessing, model selection, and evaluation.",
-    tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "EDA"],
-    keyFeatures: [
-      "Data quality checks and outlier handling",
-      "Feature engineering for sales drivers",
-      "Comparative model evaluation",
-      "Actionable insights for inventory planning",
-    ],
-    results: [
-      "Delivered stable forecasting pipeline for item-level prediction",
-      "Enabled data-backed planning decisions for inventory teams",
-    ],
-    challenges: [
-      {
-        challenge: "Noisy retail features and missing values",
-        solution: "Used robust preprocessing strategy and feature normalization",
-      },
-      {
-        challenge: "Model variance across product categories",
-        solution: "Benchmarked multiple regressors and selected the most stable performer",
-      },
-    ],
-    github: "https://github.com/Zameer-7",
-    demo: "",
-  },
-  {
-    num: "03",
+    num: "07",
     badge: "Deep Learning - CV",
-    title: "Chest X-Ray Pneumonia Detection",
-    desc: "Implemented a DenseNet121-based binary classifier for chest X-ray analysis, integrated Grad-CAM for explainability, and deployed the solution with Streamlit.",
+    title: "AI Chest X-Ray Pneumonia Detection",
+    desc: "Implemented a DenseNet121-based classifier for chest X-ray analysis, integrated Grad-CAM for explainability and Tesseract OCR for metadata, and deployed via Streamlit.",
     problem:
       "Clinical screening support tools need high-confidence image classification with interpretable outputs for medical validation.",
     architecture:
-      "Fine-tuned DenseNet121 with transfer learning and augmentation, then layered Grad-CAM visualization and Streamlit deployment.",
-    tech: ["DenseNet121", "Grad-CAM", "Streamlit", "Deep Learning"],
+      "Fine-tuned DenseNet121 with transfer learning and augmentation, layered Grad-CAM visualization and Tesseract OCR for patient metadata extraction, and deployed end-to-end via Streamlit.",
+    tech: ["PyTorch", "DenseNet121", "Grad-CAM", "Tesseract OCR", "Streamlit"],
     keyFeatures: [
       "DenseNet121 transfer-learning pipeline",
       "Image augmentation for generalization",
       "Grad-CAM explainability overlays",
+      "Tesseract OCR for patient metadata extraction",
       "Interactive Streamlit inference UI",
     ],
     results: [
-      "Improved classification reliability through augmentation + fine-tuning",
+      "Improved classification reliability through augmentation and fine-tuning",
       "Provided visual explanation overlays for clinician-friendly review",
     ],
     challenges: [
       {
         challenge: "Limited labeled data and class imbalance",
-        solution: "Applied augmentation and balanced training strategy",
+        solution: "Applied augmentation and a balanced training strategy",
       },
       {
-        challenge: "Need for interpretability in medical context",
+        challenge: "Need for interpretability in a medical context",
         solution: "Integrated Grad-CAM to expose activation regions behind predictions",
       },
     ],
-    github: "https://github.com/Zameer-7",
-    demo: "",
-  },
-  {
-    num: "04",
-    badge: "Fraud Detection - FinTech",
-    title: "FRMS - Fraud Risk Management System",
-    desc: "Designed and implemented an FRMS pipeline during internship to detect suspicious transaction patterns with scalable, analytics-ready data architecture.",
-    problem:
-      "Fraud monitoring systems require near real-time detection, traceability, and scalable storage for high-volume transaction streams.",
-    architecture:
-      "Designed ingestion + risk-evaluation flow with Python services and containerized deployment, backed by PostgreSQL/MySQL/ClickHouse.",
-    tech: ["Python", "Docker", "PostgreSQL", "MySQL", "ClickHouse", "Fraud Detection"],
-    keyFeatures: [
-      "Transaction risk-rule pipeline",
-      "Multi-database architecture for ops + analytics",
-      "Containerized deployment using Docker",
-      "Traceable detection logic for auditability",
-    ],
-    results: [
-      "Established scalable FRMS base architecture during internship",
-      "Improved detection-readiness and query performance for analytics use cases",
-    ],
-    challenges: [
-      {
-        challenge: "Balancing write-heavy ingestion with analytical querying",
-        solution: "Separated storage concerns across transactional and analytical databases",
-      },
-      {
-        challenge: "Operational consistency across environments",
-        solution: "Containerized services and standardized runtime configurations",
-      },
-    ],
-    github: "https://github.com/Zameer-7",
+    github: "https://github.com/Zameer-inno",
     demo: "",
   },
 ];
@@ -344,21 +446,21 @@ const roadmap = [
   {
     year: "4th Year",
     period: "2025 - 2026",
-    phase: "Growth & Career Focus",
+    phase: "Industry & Promotion Phase",
     icon: Target,
-    summary: "Currently working as an intern at Innovitegra Solutions while targeting high-impact AI/ML roles.",
+    summary: "Joined Innovitegra Solutions as an AI/ML Developer Intern and was promoted to Associate Software Development Engineer.",
     highlights: [
-      "Currently working as AI/ML Intern at Innovitegra Solutions",
-      "Built FRMS (Fraud Risk Management System) project for fraud pattern detection",
-      "FRMS stack: Docker, PostgreSQL, MySQL, ClickHouse",
-      "CGPA improved consistently to 8.7",
-      "Exploring fraud detection systems",
-      "Preparing for product engineer placements (DeltaX & top firms)",
-      "Started Forex & index trading - Angel One, scalping",
-      "Designing ML-based trading bot with risk management",
+      "Joined Innovitegra Solutions as AI/ML Developer Intern (Jan 2026)",
+      "Promoted to Associate Software Development Engineer (Jun 2026) based on delivery across production systems",
+      "Architected backend for a multi-module Enterprise ERP platform (HR, CTMS, billing, CRM)",
+      "Built backend + Admin frontend for a 3-portal e-commerce marketplace with AI quality review",
+      "Developed the full frontend for a banking transaction reconciliation platform",
+      "Fine-tuned PaddleOCR for multilingual (Pashto/Dari) identity document extraction",
+      "Built a real-time Fraud Risk Monitoring platform with Redis and PostgreSQL",
+      "Maintained 8.6 CGPA while working full-time in industry",
     ],
-    turning: "Focused on production-grade system design, scalability, and deployment-oriented execution.",
-    tags: ["Innovitegra", "FRMS", "Docker", "PostgreSQL", "MySQL", "ClickHouse", "Trading Bot", "Fraud Detection", "Stock Prediction", "Bangalore"],
+    turning: "Moved from ML experimentation into production-grade backend and full-stack system design, earning a promotion within six months.",
+    tags: ["Innovitegra", "FastAPI", "React", "Docker", "PostgreSQL", "Redis", "PaddleOCR", "ERP", "E-Commerce", "Fraud Detection"],
   },
 ];
 
@@ -370,7 +472,7 @@ export default function Portfolio() {
   const ballRef = useRef<HTMLDivElement | null>(null);
   const mouseRef = useRef({ x: -100, y: -100 });
   const rafRef = useRef<number | null>(null);
-  const heroSlides = ["/profile-ieee-old.jpeg", "/profile-ieee.jpeg"];
+  const heroSlides = ["/profile-ieee.jpeg", "/profile-2.jpeg"];
   const [heroSlideErrors, setHeroSlideErrors] = useState<Record<string, boolean>>({});
   const [heroSlide, setHeroSlide] = useState(0);
   const availableHeroSlides = heroSlides.filter((s) => !heroSlideErrors[s]);
@@ -630,11 +732,17 @@ export default function Portfolio() {
     }
     .hero-photo-card img {
       width: 100%;
-      height: auto;
-      max-height: 560px;
+      height: 100%;
       object-fit: cover;
       display: block;
       border: 1px solid rgba(0,173,181,.2);
+    }
+    .hero-photo-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 11;
+      max-height: 560px;
+      overflow: hidden;
     }
     .hero-photo-fallback {
       width: 100%;
@@ -1243,6 +1351,44 @@ export default function Portfolio() {
       letter-spacing: .5px;
     }
 
+    .milestone-banner {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid rgba(0,173,181,.32);
+      background: linear-gradient(120deg, rgba(0,173,181,.14), rgba(34,40,49,.55));
+      padding: 22px 26px;
+      backdrop-filter: blur(10px);
+    }
+    .milestone-icon {
+      flex-shrink: 0;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,173,181,.16);
+      border: 1px solid rgba(0,173,181,.45);
+      color: var(--gold);
+    }
+    .milestone-icon svg { width: 20px; height: 20px; }
+    .milestone-title {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -.2px;
+    }
+    .milestone-text {
+      font-size: 12.5px;
+      color: rgba(238,238,238,.76);
+      line-height: 1.65;
+      max-width: 720px;
+    }
+
     .ct-head { display: flex; align-items: center; gap: 20px; margin-bottom: 26px; }
     .ct-line { flex: 1; height: 1px; background: rgba(0,173,181,.28); }
     .ct-tag { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
@@ -1309,6 +1455,7 @@ export default function Portfolio() {
       .rm-points { grid-template-columns: repeat(4, minmax(110px, 1fr)); }
       .rm-popup-list { columns: 1; }
       footer { padding: 18px 20px; flex-direction: column; gap: 6px; }
+      .milestone-banner { flex-direction: column; align-items: flex-start; padding: 18px; }
     }
 
     @media (hover: none), (pointer: coarse) {
@@ -1324,9 +1471,8 @@ export default function Portfolio() {
       <Glitter />
 
       <LazyMotion features={domAnimation}>
+      <div ref={ballRef} className={`ball${hov ? " h" : ""}`} />
       <div style={{ position: "relative", zIndex: 1 }}>
-        <div ref={ballRef} className={`ball${hov ? " h" : ""}`} />
-
         <nav>
           <a href="#about" className="logo" aria-label="Go to top" {...H}>
             MZ
@@ -1344,18 +1490,19 @@ export default function Portfolio() {
           <div className="hero-inner">
             <div className="hc">
               <div className="hbadge">
-              <span className="hbdot" />AI/ML Intern at Innovitegra Solutions ? Open to Full-Time Roles (2026)
+              <span className="hbdot" />Associate Software Development Engineer at Innovitegra Solutions
               </div>
             <h1>
               Mohamed <span className="aw">Zameer</span> Z
             </h1>
               <div className="hrole">
-                AI & Machine Learning <em>Engineer</em>
+                Software Development <em>Engineer</em>
               </div>
             <p className="hdesc">
-                Final-year AI & ML Engineer from Sai Vidya Institute of Technology (SVIT), currently working as an
-                AI/ML intern at Innovitegra Solutions and contributing to real-world data systems and intelligent
-                decision workflows. Passionate about building scalable, production-ready AI solutions.
+                Software Development Engineer building production backend and full-stack applications with Python,
+                FastAPI, React, PostgreSQL, Redis, and Docker. Promoted from AI/ML Developer Intern to Associate
+                Software Development Engineer at Innovitegra Solutions, delivering ERP, e-commerce, fraud monitoring,
+                banking reconciliation, and OCR/ML systems in production.
             </p>
               <div className="hcta">
                 <a
@@ -1367,14 +1514,17 @@ export default function Portfolio() {
                 >
                   <LinkedInIcon /> LinkedIn
                 </a>
-                <a href="http://github.com/Zameer-7" target="_blank" rel="noopener noreferrer" className="bo" {...H}>
+                <a href="http://github.com/Zameer-inno" target="_blank" rel="noopener noreferrer" className="bo" {...H}>
                   <GitHubIcon /> GitHub
+                </a>
+                <a href="/Zameer_Resume.pdf" target="_blank" rel="noopener noreferrer" className="bo" {...H}>
+                  <FileText size={15} /> Resume
                 </a>
               </div>
               <div className="stat-row">
                 {[
-                  ["4", "Projects"],
-                  ["8.7", "CGPA"],
+                  ["7", "Projects"],
+                  ["8.6", "CGPA"],
                   ["4", "Certifications"],
                 ].map(([n, l]) => (
                   <div key={l} className="stat">
@@ -1393,18 +1543,20 @@ export default function Portfolio() {
                     <code>public/profile-ieee-old.jpeg</code> and <code>public/profile-ieee.jpeg</code>
                   </div>
                 ) : (
-                  <Image
-                    src={availableHeroSlides[activeHeroSlide]}
-                    alt="Mohamed Zameer at IEEE Bangalore Section event"
-                    width={900}
-                    height={1400}
-                    onError={() =>
-                      setHeroSlideErrors((prev) => ({
-                        ...prev,
-                        [availableHeroSlides[activeHeroSlide]]: true,
-                      }))
-                    }
-                  />
+                  <div className="hero-photo-frame">
+                    <Image
+                      src={availableHeroSlides[activeHeroSlide]}
+                      alt="Mohamed Zameer at IEEE Bangalore Section event"
+                      fill
+                      sizes="(max-width: 860px) 90vw, 430px"
+                      onError={() =>
+                        setHeroSlideErrors((prev) => ({
+                          ...prev,
+                          [availableHeroSlides[activeHeroSlide]]: true,
+                        }))
+                      }
+                    />
+                  </div>
                 )}
                 {availableHeroSlides.length > 1 && (
                   <div className="hero-slide-dots">
@@ -1526,7 +1678,7 @@ export default function Portfolio() {
                   yr: "2022 - 2026",
                   deg: "B.E. in Artificial Intelligence & Machine Learning",
                   school: "Sai Vidya Institute of Technology",
-                  cgpa: "8.7",
+                  cgpa: "8.6",
                 },
                 { yr: "2020 - 2022", deg: "2nd PUC (Pre-University)", school: "Chethana PU College", cgpa: null },
               ].map((e, i) => (
@@ -1612,6 +1764,19 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
+          <div className="milestone-banner fu">
+            <div className="milestone-icon">
+              <Target />
+            </div>
+            <div>
+              <div className="milestone-title">Intern to Full-Time, In-House</div>
+              <p className="milestone-text">
+                Completed 6 months as AI/ML Developer Intern at Innovitegra Solutions (Jan 2026 – Jun 2026) and
+                converted to a full-time role as Associate Software Development Engineer — continuing to grow with
+                the same company rather than restarting elsewhere.
+              </p>
+            </div>
+          </div>
         </section>
 
         <div className="sec-divider" />
@@ -1625,8 +1790,8 @@ export default function Portfolio() {
           <div className="ct-center fu">
             <div className="ct-title">Let&apos;s Connect</div>
             <p className="ct-desc">
-              Graduating in 2026 and actively seeking full-time opportunities in AI, ML, and Data Science. If
-              you&apos;re hiring or interested in collaboration, feel free to reach out.
+              Associate Software Development Engineer at Innovitegra Solutions, open to collaboration and
+              interesting backend/full-stack opportunities. Feel free to reach out.
             </p>
             <div className="clinks">
               <a
@@ -1638,6 +1803,9 @@ export default function Portfolio() {
               >
                 <MailIcon /> zameer.trichy@gmail.com
               </a>
+              <a href="tel:+917338021017" className="cl gcard" {...H}>
+                <PhoneIcon /> +91 73380 21017
+              </a>
               <a
                 href="https://www.linkedin.com/in/mohamed-zameer-z"
                 target="_blank"
@@ -1648,7 +1816,7 @@ export default function Portfolio() {
                 <LinkedInIcon /> LinkedIn
               </a>
               <a
-                href="http://github.com/Zameer-7"
+                href="http://github.com/Zameer-inno"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cl gcard"
@@ -1662,7 +1830,7 @@ export default function Portfolio() {
 
         <footer>
           <span>© 2026 Mohamed Zameer Z</span>
-          <span>AI & Machine Learning ? SVIT</span>
+          <span>Software Development Engineer ? Innovitegra Solutions</span>
         </footer>
       </div>
       <AnimatePresence>
